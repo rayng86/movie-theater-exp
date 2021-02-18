@@ -8,6 +8,7 @@ type TriviaSlideComponentProps = {
   currentIndex: number;
   isAnswerRevealed: boolean;
 };
+
 const TriviaSlideComponent = ({
   trivia,
   activeIndex,
@@ -36,15 +37,17 @@ const TriviaSlideComponent = ({
           key={answer}
           className={isAnswerRevealed ? 'answers highlight-answer' : 'answers'}
         >
-          {answer}
+          {isAnswerRevealed && 'The Answer is:'} {fixTextStr(answer)}
         </div>
       ))}
     </div>
   );
 };
+
 type TriviaComponentProps = {
   triviaData: Array<TriviaDataStructure>;
 };
+
 export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false);
@@ -56,19 +59,13 @@ export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
           if (isAnswerRevealed) {
             setActiveIndex(activeIndex + 1);
             setIsAnswerRevealed(false);
-            console.log('oh now');
           } else {
             setIsAnswerRevealed(true);
-            console.log('yes');
           }
         } else {
           console.log('restart');
           setActiveIndex(0);
         }
-      }
-      if (e.code === 'ArrowLeft') {
-        if (activeIndex !== 0)
-          setActiveIndex(activeIndex - 1);
       }
     };
     document.addEventListener('keydown', handleKey);
