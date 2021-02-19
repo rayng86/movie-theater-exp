@@ -118,7 +118,7 @@ function App() {
         isTriviaMode={isTriviaMode}
         toggleBgMusic={toggleBgMusic}
       />
-      <div id="credits">
+      <div id="created-by">
         All my love to cinema. <br /> Created by Raymond Ng
       </div>
     </div>
