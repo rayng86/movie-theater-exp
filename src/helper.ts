@@ -23,3 +23,14 @@ export const randomBg = () => {
 };
 
 export const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+export const musicHelper = (audio: any, audioPlayingState: boolean, audioVolumeValue: number) => {
+  if (!audioPlayingState) {
+    audio.volume = audioVolumeValue;
+    audio.loop = true;
+    audio.play();
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+}
