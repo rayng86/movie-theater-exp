@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { randomizeAnswers, fixTextStr, randomBg } from '../helper';
+import { randomizeAnswers, fixTextStr, randomBg, alphabets } from '../helper';
 import { TriviaDataStructure } from "../types";
 
 type TriviaSlideComponentProps = {
@@ -15,7 +15,7 @@ const TriviaSlideComponent = ({
   currentIndex,
   isAnswerRevealed,
 }: TriviaSlideComponentProps) => {
-  const displaySlide = activeIndex === currentIndex ? 'block' : 'none';
+  const displaySlide = activeIndex === currentIndex ? 'grid' : 'none';
   const bgColor = randomBg();
   const { question, incorrect_answers, correct_answer } = trivia;
   const possibleAnswers = isAnswerRevealed
@@ -29,6 +29,7 @@ const TriviaSlideComponent = ({
         color: 'white',
         boxSizing: 'border-box',
         padding: '40px 20px',
+        transition: 'all 1s ease-out',
       }}
     >
       <strong className="question">{fixTextStr(question)}</strong>
@@ -37,7 +38,7 @@ const TriviaSlideComponent = ({
           key={answer}
           className={isAnswerRevealed ? 'answers highlight-answer' : 'answers'}
         >
-          {isAnswerRevealed && 'The Answer is:'} {fixTextStr(answer)}
+          {isAnswerRevealed && 'The Answer is:'} {alphabets[index]}) {fixTextStr(answer)}
         </div>
       ))}
     </div>

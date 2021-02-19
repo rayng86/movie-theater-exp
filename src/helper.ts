@@ -21,3 +21,5 @@ export const randomBg = () => {
   const color = `rgba(${r},${g},${b},${a})`;
   return color;
 };
+
+export const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('');
