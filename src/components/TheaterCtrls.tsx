@@ -40,12 +40,12 @@ const TheaterCtrls = ({
     <button onClick={toggleBgMusic}>
       Toggle Background Music
     </button>
-    {/* <button
-      disabled={!screenState}
-      onClick={() => setPlayTrailersState(!playTrailersState)}
+    <button
+      disabled={!isProjectorOn}
+      onClick={() => changeScreenView(ScreenViews.trailers)}
     >
       Play Trailers
-    </button> */}
+    </button>
   </div>
 );
 

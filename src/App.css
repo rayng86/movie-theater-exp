@@ -147,6 +147,7 @@ button {
   z-index: 4;
   opacity: 0%;
   transition: all 1s ease-in;
+  pointer-events: none;
 }
 .lights.dimmed {
   opacity: 0.8;
@@ -162,6 +163,8 @@ button {
           animation: glow 5s ease-in-out infinite alternate; */
   position: relative;
   overflow: hidden;
+  filter: blur(1px);
+  -webkit-filter: blur(1px);
 }
 
 .screen.off {
@@ -240,7 +243,7 @@ button {
   border-right: 550px solid transparent;
   border-top: 800px solid rgb(245, 245, 220);
   border-radius: 50%;
-  filter: blur(8px);
+  filter: blur(40px);
   -webkit-filter: blur(40px);
   opacity: 0.3;
   position: absolute;

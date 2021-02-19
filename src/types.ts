@@ -19,6 +19,7 @@ export enum ScreenViews {
   trivia = 'trivia',
   credits = 'credits',
   none = 'none',
+  trailers = 'trailers',
 }
 
 export type State = { kind: PossibleStates.initial } |

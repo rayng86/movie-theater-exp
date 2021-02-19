@@ -13,7 +13,6 @@ function App() {
   const [lightsState, setLights] = useState(false);
   const [isProjectorOn, toggleProjector] = useState(false);
   const [screenView, setScreenView] = useState<ScreenViews>(ScreenViews.none);
-  // const [playTrailersState, setPlayTrailersState] = useState(false);
 
   // Trivia States
   const [triviaData, setTriviaData] = useState<State>({
@@ -74,12 +73,12 @@ function App() {
   };
 
   const changeScreenView = (view: ScreenViews) => {
-    if ((screenView === view) && (screenView !== ScreenViews.none)) {
+    if (screenView === view && screenView !== ScreenViews.none) {
       setScreenView(ScreenViews.none);
     } else {
       setScreenView(view);
     }
-  }
+  };
 
   return (
     <div className="App">
@@ -91,28 +90,32 @@ function App() {
 
             <div
               className="front-stage-content"
-              style={lightsState && isProjectorOn ? { zIndex: 4 } : { zIndex: 1 }}
+              style={
+                lightsState && isProjectorOn ? { zIndex: 4 } : { zIndex: 1 }
+              }
             >
               <div className={`screen ${isProjectorOn ? '' : 'off'}`}>
                 {isProjectorOn &&
-                  (screenView === ScreenViews.trivia) &&
+                  screenView === ScreenViews.trivia &&
                   triviaData.kind === PossibleStates.success && (
                     <TriviaComponent triviaData={triviaData.data} />
                   )}
-                {isProjectorOn && (screenView === ScreenViews.credits) && <CreditsComponent />}
-                {/* {isProjectorOn && playTrailersState && (
+                {isProjectorOn && screenView === ScreenViews.credits && (
+                  <CreditsComponent />
+                )}
+                {isProjectorOn && screenView === ScreenViews.trailers && (
                   <>
-                    <video
+                    <iframe
+                      src="https://www.youtube.com/embed/kP9TfCWaQT4?autoplay=1&showinfo=0&controls=0"
+                      frameBorder="0"
+                      allow="autoplay; encrypted-media"
+                      title="video"
                       width="100%"
                       height="100%"
-                      autoPlay
-                      style={{ objectFit: 'fill' }}
-                    >
-                      <source src="trailer1.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                      style={{ zIndex: 10 }}
+                    />
                   </>
-                )} */}
+                )}
               </div>
             </div>
 
