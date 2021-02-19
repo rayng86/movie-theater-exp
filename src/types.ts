@@ -15,7 +15,7 @@ export type TriviaDataStructure = {
   type: string;
 };
 
-export type State = { kind: PossibleStates.initial; } |
-{ kind: PossibleStates.loading; } |
-{ kind: PossibleStates.error; errorStr: string; } |
-{ kind: PossibleStates.success; data: Array<TriviaDataStructure>; };
+export type State = { kind: PossibleStates.initial } |
+{ kind: PossibleStates.loading } |
+{ kind: PossibleStates.error, errorStr: string; } |
+{ kind: PossibleStates.success, data: Array<TriviaDataStructure> };
