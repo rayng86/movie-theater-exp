@@ -326,3 +326,7 @@ button {
     top: -100%;
   }
 }
+
+.ytplayer {
+  pointer-events: none;
+}

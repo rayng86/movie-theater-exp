@@ -106,6 +106,7 @@ function App() {
                 {isProjectorOn && screenView === ScreenViews.trailers && (
                   <>
                     <iframe
+                      className="ytplayer"
                       src="https://www.youtube.com/embed/kP9TfCWaQT4?autoplay=1&showinfo=0&controls=0"
                       frameBorder="0"
                       allow="autoplay; encrypted-media"
