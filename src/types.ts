@@ -15,6 +15,12 @@ export type TriviaDataStructure = {
   type: string;
 };
 
+export enum ScreenViews {
+  trivia = 'trivia',
+  credits = 'credits',
+  none = 'none',
+}
+
 export type State = { kind: PossibleStates.initial } |
 { kind: PossibleStates.loading } |
 { kind: PossibleStates.error, errorStr: string; } |

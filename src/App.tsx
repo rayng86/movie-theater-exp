@@ -3,27 +3,31 @@ import axios from 'axios';
 import './App.css';
 import TravelCurtains from './components/TravelCurtain';
 import { TriviaComponent } from './components/TriviaSlideComponent';
-import { State, PossibleStates } from './types';
+import { State, PossibleStates, ScreenViews } from './types';
 import TheaterCtrls from './components/TheaterCtrls';
+import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
 
 function App() {
   const [curtainState, setCurtainState] = useState(false);
   const [lightsState, setLights] = useState(false);
-  const [screenState, toggleScreenState] = useState(false);
+  const [isProjectorOn, toggleProjector] = useState(false);
+  const [screenView, setScreenView] = useState<ScreenViews>(ScreenViews.none);
   // const [playTrailersState, setPlayTrailersState] = useState(false);
-  
+
   // Trivia States
-  const [isTriviaMode, toggleTrivia] = useState(false);
   const [triviaData, setTriviaData] = useState<State>({
     kind: PossibleStates.initial,
   });
 
+  // Background Music Audio
   const [isBackgroundMusicOn, toggleBackgroundMusic] = useState(false);
   const [bgMusicAudio] = useState(new Audio('../sounds/mike-leite-happy.mp3'));
-  
+
   // Projector Audio
-  const [projectorAudio] = useState(new Audio('../sounds/film-projector-sound-effect.mp3'));
+  const [projectorAudio] = useState(
+    new Audio('../sounds/film-projector-sound-effect.mp3')
+  );
   const [projectorAudioPlaying, setProjectorAudioPlaying] = useState(false);
 
   useEffect(() => {
@@ -58,8 +62,8 @@ function App() {
   };
 
   const toggleScreenProjector = () => {
-    toggleScreenState(!screenState);
-    toggleTrivia(false);
+    toggleProjector(!isProjectorOn);
+    setScreenView(ScreenViews.none);
     setProjectorAudioPlaying(!projectorAudioPlaying);
     musicHelper(projectorAudio, projectorAudioPlaying, 0.1);
   };
@@ -67,6 +71,14 @@ function App() {
   const toggleBgMusic = () => {
     toggleBackgroundMusic(!isBackgroundMusicOn);
     musicHelper(bgMusicAudio, isBackgroundMusicOn, 0.1);
+  };
+
+  const changeScreenView = (view: ScreenViews) => {
+    if ((screenView === view) && (screenView !== ScreenViews.none)) {
+      setScreenView(ScreenViews.none);
+    } else {
+      setScreenView(view);
+    }
   }
 
   return (
@@ -79,15 +91,16 @@ function App() {
 
             <div
               className="front-stage-content"
-              style={lightsState && screenState ? { zIndex: 4 } : { zIndex: 1 }}
+              style={lightsState && isProjectorOn ? { zIndex: 4 } : { zIndex: 1 }}
             >
-              <div className={`screen ${screenState ? '' : 'off'}`}>
-                {screenState &&
-                  isTriviaMode &&
+              <div className={`screen ${isProjectorOn ? '' : 'off'}`}>
+                {isProjectorOn &&
+                  (screenView === ScreenViews.trivia) &&
                   triviaData.kind === PossibleStates.success && (
                     <TriviaComponent triviaData={triviaData.data} />
                   )}
-                {screenState && playTrailersState && (
+                {isProjectorOn && (screenView === ScreenViews.credits) && <CreditsComponent />}
+                {/* {isProjectorOn && playTrailersState && (
                   <>
                     <video
                       width="100%"
@@ -107,16 +120,15 @@ function App() {
           </div>
         </div>
       </div>
-      {screenState && <div id="cone">&nbsp;</div>}
+      {isProjectorOn && <div id="cone">&nbsp;</div>}
       <TheaterCtrls
-        screenState={screenState}
+        isProjectorOn={isProjectorOn}
         setCurtainState={setCurtainState}
         curtainState={curtainState}
         toggleLights={toggleLights}
-        toggleScreenProjector={toggleScreenProjector}
-        toggleTrivia={toggleTrivia}
-        isTriviaMode={isTriviaMode}
+        toggleProjector={toggleScreenProjector}
         toggleBgMusic={toggleBgMusic}
+        changeScreenView={changeScreenView}
       />
       <div id="created-by">
         All my love to cinema. <br /> Created by Raymond Ng

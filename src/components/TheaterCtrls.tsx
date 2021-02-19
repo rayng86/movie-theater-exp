@@ -1,39 +1,41 @@
 import React from 'react';
+import { ScreenViews } from '../types';
 
 type TheaterCtrlsProps = {
-  screenState: boolean,
+  isProjectorOn: boolean,
   setCurtainState: Function,
   curtainState: boolean,
   toggleLights: () => void,
-  toggleScreenProjector: () => void,
-  toggleTrivia: Function,
-  isTriviaMode: boolean,
+  toggleProjector: () => void,
   toggleBgMusic: () => void,
+  changeScreenView: (view: ScreenViews) => void,
 }
 
 const TheaterCtrls = ({
-  screenState,
+  isProjectorOn,
   setCurtainState,
   curtainState,
   toggleLights,
-  toggleScreenProjector,
-  toggleTrivia,
-  isTriviaMode,
+  toggleProjector,
   toggleBgMusic,
+  changeScreenView,
 }: TheaterCtrlsProps) => (
   <div style={{ zIndex: 6, margin: '20px 0' }}>
     <button
-      disabled={screenState}
+      disabled={isProjectorOn}
       onClick={() => setCurtainState(!curtainState)}
     >
       Toggle Curtains
     </button>
     <button onClick={toggleLights}>Dim Lights On/Off</button>
-    <button disabled={!curtainState} onClick={toggleScreenProjector}>
+    <button disabled={!curtainState} onClick={toggleProjector}>
       Turn Projector On/Off
     </button>
-    <button disabled={!screenState} onClick={() => toggleTrivia(!isTriviaMode)}>
+    <button disabled={!isProjectorOn} onClick={() => changeScreenView(ScreenViews.trivia)}>
       Trivia Mode
+    </button>
+    <button disabled={!isProjectorOn} onClick={() => changeScreenView(ScreenViews.credits)}>
+      Credits Roll
     </button>
     <button onClick={toggleBgMusic}>
       Toggle Background Music
