@@ -4,17 +4,28 @@ import './App.css';
 import TravelCurtains from './components/TravelCurtain';
 import { TriviaComponent } from './components/TriviaSlideComponent';
 import { State, PossibleStates } from './types';
+import TheaterCtrls from './components/TheaterCtrls';
+import { musicHelper } from './helper';
 
 function App() {
   const [curtainState, setCurtainState] = useState(false);
   const [lightsState, setLights] = useState(false);
   const [screenState, toggleScreenState] = useState(false);
-  const [playTrailersState, setPlayTrailersState] = useState(false);
-
+  // const [playTrailersState, setPlayTrailersState] = useState(false);
+  
+  // Trivia States
   const [isTriviaMode, toggleTrivia] = useState(false);
   const [triviaData, setTriviaData] = useState<State>({
     kind: PossibleStates.initial,
   });
+
+  const [isBackgroundMusicOn, toggleBackgroundMusic] = useState(false);
+  const [bgMusicAudio] = useState(new Audio('../sounds/mike-leite-happy.mp3'));
+  
+  // Projector Audio
+  const [projectorAudio] = useState(new Audio('../sounds/film-projector-sound-effect.mp3'));
+  const [projectorAudioPlaying, setProjectorAudioPlaying] = useState(false);
+
   useEffect(() => {
     setTriviaData({ kind: PossibleStates.loading });
     axios
@@ -41,6 +52,23 @@ function App() {
         }
       });
   }, []);
+
+  const toggleLights = () => {
+    setLights(!lightsState);
+  };
+
+  const toggleScreenProjector = () => {
+    toggleScreenState(!screenState);
+    toggleTrivia(false);
+    setProjectorAudioPlaying(!projectorAudioPlaying);
+    musicHelper(projectorAudio, projectorAudioPlaying, 0.1);
+  };
+
+  const toggleBgMusic = () => {
+    toggleBackgroundMusic(!isBackgroundMusicOn);
+    musicHelper(bgMusicAudio, isBackgroundMusicOn, 0.1);
+  }
+
   return (
     <div className="App">
       <div style={{ display: 'flex' }}>
@@ -71,7 +99,7 @@ function App() {
                       Your browser does not support the video tag.
                     </video>
                   </>
-                )}
+                )} */}
               </div>
             </div>
 
@@ -79,35 +107,20 @@ function App() {
           </div>
         </div>
       </div>
-      <div></div>
-      <button
-        disabled={screenState}
-        onClick={() => setCurtainState(!curtainState)}
-      >
-        Toggle Curtains
-      </button>
-      <button onClick={() => setLights(!lightsState)}>Dim Lights On/Off</button>
-      <button
-        disabled={!curtainState}
-        onClick={() => toggleScreenState(!screenState)}
-      >
-        Turn Projector On/Off
-      </button>
-      <button
-        disabled={!screenState}
-        onClick={() => toggleTrivia(!isTriviaMode)}
-      >
-        Play Trivias
-      </button>
-      <button
-        disabled={!screenState}
-        onClick={() => setPlayTrailersState(!playTrailersState)}
-      >
-        Play Trailers
-      </button>
-      {triviaData && (
-        <p style={{ color: 'white' }}>{JSON.stringify(triviaData)}</p>
-      )}
+      {screenState && <div id="cone">&nbsp;</div>}
+      <TheaterCtrls
+        screenState={screenState}
+        setCurtainState={setCurtainState}
+        curtainState={curtainState}
+        toggleLights={toggleLights}
+        toggleScreenProjector={toggleScreenProjector}
+        toggleTrivia={toggleTrivia}
+        isTriviaMode={isTriviaMode}
+        toggleBgMusic={toggleBgMusic}
+      />
+      <div id="credits">
+        All my love to cinema. <br /> Created by Raymond Ng
+      </div>
     </div>
   );
 }
