@@ -1,7 +1,13 @@
 body {
-  background: black
-
+  background: url('img/seat-bg.jpg') no-repeat black;
+  background-size:contain;
+  background-position: center 700px;
 }
+
+button {
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
 }
@@ -117,7 +123,7 @@ body {
   justify-content: flex-start;
   transform: translateX(0);
 }
-.curtain-content {
+.front-stage-content {
   align-items: center;
   background: #333;
   color: #fff;
@@ -128,9 +134,6 @@ body {
   position: absolute;
   text-align: center;
   width: 80%;
-}
-.curtain-content img {
-  width: 20%;
 }
 
 .lights {
@@ -147,13 +150,15 @@ body {
 }
 
 .screen {
-  background: grey;
+  background: #fff7e7;
   height: 80%;
   /* padding: 20px; */
   width: 80%;
   /* transition: all 1s ease-out; */
-  -webkit-animation: glow 5s ease-in-out infinite alternate;
-          animation: glow 5s ease-in-out infinite alternate;
+  /* -webkit-animation: glow 5s ease-in-out infinite alternate;
+          animation: glow 5s ease-in-out infinite alternate; */
+  position: relative;
+  overflow: hidden;
 }
 
 .screen.off {
@@ -222,10 +227,11 @@ body {
 .question, .answers {
   text-shadow: -1px 1px 0 #000,
   1px 1px 0 #000,
- 1px -1px 0 #000,
--1px -1px 0 #000;
+  1px -1px 0 #000,
+  -1px -1px 0 #000;
   font-size: 2rem;
 }
+
 .answers.highlight-answer {
   font-weight: 800;
   color: gold;
@@ -237,4 +243,67 @@ body {
   background: url('img/pexels-photo-3921045.jpeg') no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+#cone {
+  width: 0;
+  height: 0;
+  border-left: 550px solid transparent;
+  border-right: 550px solid transparent;
+  border-top: 800px solid rgb(245, 245, 220);
+  border-radius: 50%;
+  filter: blur(8px);
+  -webkit-filter: blur(40px);
+  opacity: 0.3;
+  position: absolute;
+  top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  pointer-events: none;
+  animation: projector-flicker 2s linear infinite;
+}
+
+@keyframes projector-flicker {
+  0% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+  2% {
+    opacity: 0.3;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+  4% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+  
+  8% {
+    opacity: 0.3;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+  70% {
+    opacity:0.4;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+  100% {
+    opacity: 0.3;
+    -webkit-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+-moz-box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+box-shadow: 0px 0px 78px 4px rgba(245, 245, 220,0.73);
+  }
+}
+
 }

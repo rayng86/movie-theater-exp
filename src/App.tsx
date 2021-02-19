@@ -50,7 +50,7 @@ function App() {
             <TravelCurtains curtainAlignedPosition="left" />
 
             <div
-              className="curtain-content"
+              className="front-stage-content"
               style={lightsState && screenState ? { zIndex: 4 } : { zIndex: 1 }}
             >
               <div className={`screen ${screenState ? '' : 'off'}`}>
