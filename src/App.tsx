@@ -104,18 +104,7 @@ function App() {
                   <CreditsComponent />
                 )}
                 {isProjectorOn && screenView === ScreenViews.trailers && (
-                  <>
-                    <iframe
-                      className="ytplayer"
-                      src="https://www.youtube.com/embed/kP9TfCWaQT4?autoplay=1&showinfo=0&controls=0"
-                      frameBorder="0"
-                      allow="autoplay; encrypted-media"
-                      title="video"
-                      width="100%"
-                      height="100%"
-                      style={{ zIndex: 10 }}
-                    />
-                  </>
+                  <YouTubeVideoComponent ytKey="kP9TfCWaQT4" changeScreenView={changeScreenView} />
                 )}
               </div>
             </div>
