@@ -95,7 +95,7 @@ function App() {
                 lightsState && isProjectorOn ? { zIndex: 4 } : { zIndex: 1 }
               }
             >
-              <div className={`screen ${isProjectorOn ? '' : 'off'}`}>
+              <div className={`screen ${isProjectorOn ? '' : 'off'} ${lightsState ? 'dimmed' : ''}`}>
                 {isProjectorOn &&
                   screenView === ScreenViews.trivia &&
                   triviaData.kind === PossibleStates.success && (
@@ -117,7 +117,7 @@ function App() {
           </div>
         </div>
       </div>
-      {isProjectorOn && <div id="cone">&nbsp;</div>}
+      {isProjectorOn && <div className={`projector-light ${lightsState ? 'dimmed' : ''}`}>&nbsp;</div>}
       <TheaterCtrls
         isProjectorOn={isProjectorOn}
         setCurtainState={setCurtainState}

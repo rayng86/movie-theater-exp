@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { randomizeAnswers, fixTextStr, randomBg, alphabets } from '../helper';
-import { TriviaDataStructure } from "../types";
+import { TriviaDataStructure } from '../types';
 
 type TriviaSlideComponentProps = {
   trivia: TriviaDataStructure;
@@ -34,11 +34,19 @@ const TriviaSlideComponent = ({
     >
       <strong className="question">{fixTextStr(question)}</strong>
       {possibleAnswers.map((answer: string, index: number) => (
-        <div
-          key={answer}
-          className={isAnswerRevealed ? 'answers highlight-answer' : 'answers'}
-        >
-          {isAnswerRevealed && 'The Answer is:'} {alphabets[index]}) {fixTextStr(answer)}
+        <div key={answer}>
+          {isAnswerRevealed && (
+            <strong className="generic-text-with-stroke">
+              The Answer is:
+            </strong>
+          )}
+          <div
+            className={
+              isAnswerRevealed ? 'answers highlight-answer' : 'answers'
+            }
+          >
+            {alphabets[index].toUpperCase()}) {fixTextStr(answer)}
+          </div>
         </div>
       ))}
     </div>
@@ -82,7 +90,8 @@ export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
           currentIndex={index}
           activeIndex={activeIndex}
           trivia={trivia}
-          isAnswerRevealed={isAnswerRevealed} />
+          isAnswerRevealed={isAnswerRevealed}
+        />
       ))}
     </div>
   );

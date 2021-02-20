@@ -20,6 +20,7 @@ export enum ScreenViews {
   credits = 'credits',
   none = 'none',
   trailers = 'trailers',
+  silentPolicyPreroll = 'silentPolicyPreroll',
 }
 
 export type State = { kind: PossibleStates.initial } |
