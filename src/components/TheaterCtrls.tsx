@@ -20,7 +20,7 @@ const TheaterCtrls = ({
   toggleBgMusic,
   changeScreenView,
 }: TheaterCtrlsProps) => (
-  <div style={{ zIndex: 6, margin: '20px 0' }}>
+  <div style={{ zIndex: 6, margin: '20px 0', position: 'fixed', marginRight: 'auto', marginLeft: 'auto', left: 0, right: 0 }}>
     <button
       disabled={isProjectorOn}
       onClick={() => setCurtainState(!curtainState)}

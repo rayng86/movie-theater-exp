@@ -83,7 +83,7 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ display: 'flex' }}>
+      <div style={{ flex: '0 1 auto' }}>
         <div className="curtain">
           <div className={`lights ${lightsState ? 'dimmed' : ''}`} />
           <div className={`curtain-wrapper ${curtainState ? 'open' : ''}`}>
@@ -118,6 +118,7 @@ function App() {
         </div>
       </div>
       {isProjectorOn && <div className={`projector-light ${lightsState ? 'dimmed' : ''}`}>&nbsp;</div>}
+      <div className="theater-seats"></div>
       <TheaterCtrls
         isProjectorOn={isProjectorOn}
         setCurtainState={setCurtainState}
@@ -127,7 +128,7 @@ function App() {
         toggleBgMusic={toggleBgMusic}
         changeScreenView={changeScreenView}
       />
-      <div id="created-by">
+      <div id="created-by" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto' }}>
         All my love to cinema. <br /> Created by Raymond Ng
       </div>
     </div>
