@@ -7,6 +7,7 @@ import { State, PossibleStates, ScreenViews } from './types';
 import TheaterCtrls from './components/TheaterCtrls';
 import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
+import YouTubeVideoComponent from './components/YouTubeVideo';
 
 function App() {
   const [curtainState, setCurtainState] = useState(false);
@@ -105,6 +106,9 @@ function App() {
                 )}
                 {isProjectorOn && screenView === ScreenViews.trailers && (
                   <YouTubeVideoComponent ytKey="kP9TfCWaQT4" changeScreenView={changeScreenView} />
+                )}
+                {isProjectorOn && screenView === ScreenViews.silentPolicyPreroll && (
+                  <YouTubeVideoComponent ytKey="j_eabL16a5w" changeScreenView={changeScreenView} />
                 )}
               </div>
             </div>

@@ -46,6 +46,12 @@ const TheaterCtrls = ({
     >
       Play Trailers
     </button>
+    <button
+      disabled={!isProjectorOn}
+      onClick={() => changeScreenView(ScreenViews.silentPolicyPreroll)}
+    >
+      Silence Phones Preroll
+    </button>
   </div>
 );
 
