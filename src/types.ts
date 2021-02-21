@@ -15,6 +15,13 @@ export type TriviaDataStructure = {
   type: string;
 };
 
+export type MoviesListDataStructure = {
+  backdrop: string,
+  id: number,
+  poster: string,
+  title: string,
+};
+
 export enum ScreenViews {
   trivia = 'trivia',
   credits = 'credits',
@@ -23,7 +30,17 @@ export enum ScreenViews {
   silentPolicyPreroll = 'silentPolicyPreroll',
 }
 
-export type State = { kind: PossibleStates.initial } |
+export type TriviaState = { kind: PossibleStates.initial } |
 { kind: PossibleStates.loading } |
 { kind: PossibleStates.error, errorStr: string; } |
 { kind: PossibleStates.success, data: Array<TriviaDataStructure> };
+
+export type PopularMoviesState = { kind: PossibleStates.initial } |
+{ kind: PossibleStates.loading } |
+{ kind: PossibleStates.error, errorStr: string; } |
+{ kind: PossibleStates.success, data: Array<MoviesListDataStructure> };
+
+export type TrailerState = { kind: PossibleStates.initial } |
+{ kind: PossibleStates.loading } |
+{ kind: PossibleStates.error, errorStr: string; } |
+{ kind: PossibleStates.success, key: string };

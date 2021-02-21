@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 import TravelCurtains from './components/TravelCurtain';
 import { TriviaComponent } from './components/TriviaSlideComponent';
-import { State, PossibleStates, ScreenViews } from './types';
+import { TriviaState, PossibleStates, ScreenViews } from './types';
 import TheaterCtrls from './components/TheaterCtrls';
 import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
@@ -16,7 +16,7 @@ function App() {
   const [screenView, setScreenView] = useState<ScreenViews>(ScreenViews.none);
 
   // Trivia States
-  const [triviaData, setTriviaData] = useState<State>({
+  const [triviaData, setTriviaData] = useState<TriviaState>({
     kind: PossibleStates.initial,
   });
 

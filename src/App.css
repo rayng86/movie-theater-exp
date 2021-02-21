@@ -270,7 +270,7 @@ button {
 .projector-light.dimmed {
   border-left: 250px solid transparent;
   border-right: 250px solid transparent;
-  border-top: 300px solid rgb(245, 245, 220);
+  border-top: 230px solid rgb(245, 245, 220);
   bottom: 17px;
   animation: projector-flicker-dimmed 2s linear infinite;
 }
