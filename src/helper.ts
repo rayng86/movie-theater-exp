@@ -59,7 +59,6 @@ export const fetchMovies: any = async() => {
       title: m.title,
       poster: imgBaseUrlPath + m.poster_path
     }))
-    console.log(modifiedData);
     return { kind: PossibleStates.success, data: modifiedData };
   } catch (error) {
     console.log(error);
