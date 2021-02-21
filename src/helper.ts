@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { PossibleStates } from './types';
+
 export const fixTextStr = (str: string) => {
   const mapObj: any = {
     '&#039;': '\'',
@@ -32,5 +35,34 @@ export const musicHelper = (audio: any, audioPlayingState: boolean, audioVolumeV
   } else {
     audio.pause();
     audio.currentTime = 0;
+  }
+}
+
+export const moviedbApiUrl = 'https://api.themoviedb.org/3';
+export const theMovieDBApiKey = process.env.REACT_APP_THE_MOVIE_DB_API;
+const popularMoviesUrl = `${moviedbApiUrl}/movie/popular`;
+
+export const fetchMovies: any = async() => {
+  try {
+    const {data} = await axios.get(popularMoviesUrl, {
+      params: {
+        api_key: theMovieDBApiKey,
+        language: 'en_US',
+        page: 1,
+        region: 'US',
+      }
+    })
+    const imgBaseUrlPath = 'https://image.tmdb.org/t/p/original/';
+    const modifiedData = data['results'].map((m: any) => ({
+      id: m.id,
+      backdrop: imgBaseUrlPath + m.backdrop_path,
+      title: m.title,
+      poster: imgBaseUrlPath + m.poster_path
+    }))
+    console.log(modifiedData);
+    return { kind: PossibleStates.success, data: modifiedData };
+  } catch (error) {
+    console.log(error);
+    return ({ kind: PossibleStates.error, errorStr: error.request });
   }
 }
