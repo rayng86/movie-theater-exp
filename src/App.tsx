@@ -81,6 +81,10 @@ function App() {
     }
   };
 
+  const onEnd = (player?: any) => {
+    changeScreenView(ScreenViews.none);
+  }
+
   return (
     <div className="App">
       <div style={{ flex: '0 1 auto' }}>
@@ -108,7 +112,10 @@ function App() {
                   <YouTubeVideoComponent ytKey="kP9TfCWaQT4" changeScreenView={changeScreenView} />
                 )}
                 {isProjectorOn && screenView === ScreenViews.silentPolicyPreroll && (
-                  <YouTubeVideoComponent ytKey="j_eabL16a5w" changeScreenView={changeScreenView} />
+                  <YouTubeVideoComponent
+                    videoKey={'j_eabL16a5w'}
+                    onEnd={onEnd}
+                  />
                 )}
               </div>
             </div>

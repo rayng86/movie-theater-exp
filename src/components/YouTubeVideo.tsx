@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import YouTube from 'react-youtube';
-import { ScreenViews } from '../types';
 
 type YouTubeVideoComponentProps = {
-  ytKey: string,
-  changeScreenView: (view: ScreenViews) => void,
-}
+  videoKey: string;
+  onEnd: Function,
+};
 
-const YouTubeVideoComponent = ({ ytKey, changeScreenView } : YouTubeVideoComponentProps) => {
+const YouTubeVideoComponent = ({
+  videoKey,
+  onEnd,
+}: YouTubeVideoComponentProps) => {
+  const [player, setPlayer] = useState<any>(null);
+
+  const onReady = (event: any) => {
+    setPlayer(event.target);
+  };
   const opts: any = {
     height: '100%',
     width: '100%',
@@ -18,8 +25,15 @@ const YouTubeVideoComponent = ({ ytKey, changeScreenView } : YouTubeVideoCompone
     },
   };
   return (
-  <YouTube className="ytplayer" containerClassName="ytplayer-container" videoId={ytKey} opts={opts} onEnd={()=> changeScreenView(ScreenViews.none)} />
-)
+    <YouTube
+      className="ytplayer"
+      containerClassName="ytplayer-container"
+      videoId={videoKey}
+      opts={opts}
+      onReady={onReady}
+      onEnd={() => onEnd(player)}
+    />
+  );
 };
 
 export default YouTubeVideoComponent;
