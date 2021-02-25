@@ -18,9 +18,7 @@ const TriviaSlideComponent = ({
   const displaySlide = activeIndex === currentIndex ? 'grid' : 'none';
   const bgColor = randomBg();
   const { question, incorrect_answers, correct_answer } = trivia;
-  const possibleAnswers = isAnswerRevealed
-    ? [correct_answer]
-    : randomizeAnswers([correct_answer, ...incorrect_answers]);
+  const [possibleAnswers] = useState(randomizeAnswers([correct_answer, ...incorrect_answers]));
   return (
     <div
       style={{
@@ -33,22 +31,21 @@ const TriviaSlideComponent = ({
       }}
     >
       <strong className="question">{fixTextStr(question)}</strong>
-      {possibleAnswers.map((answer: string, index: number) => (
-        <div key={answer}>
+      {possibleAnswers.map((answer: string, index: number) => {
+        const showAnswer = isAnswerRevealed && (index === possibleAnswers.indexOf(correct_answer)) ? 'answers highlight-answer' : 'answers';
+        const hideNonAnswer = isAnswerRevealed && (index !== possibleAnswers.indexOf(correct_answer)) ? { display: 'none' } : {};
+        return (
+        <div key={answer} style={hideNonAnswer}>
           {isAnswerRevealed && (
             <strong className="generic-text-with-stroke">
               The Answer is:
             </strong>
           )}
-          <div
-            className={
-              isAnswerRevealed ? 'answers highlight-answer' : 'answers'
-            }
-          >
+          <div className={showAnswer}>
             {alphabets[index].toUpperCase()}) {fixTextStr(answer)}
           </div>
         </div>
-      ))}
+      )})}
     </div>
   );
 };
@@ -57,7 +54,7 @@ type TriviaComponentProps = {
   triviaData: Array<TriviaDataStructure>;
 };
 
-export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
+const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false);
   useEffect(() => {
@@ -84,7 +81,9 @@ export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
   }, [activeIndex, triviaData, isAnswerRevealed]);
   return (
     <div className="slide-container">
-      {triviaData.map((trivia, index) => (
+      {triviaData.map((trivia, index) => {
+        console.log(index);
+        return (
         <TriviaSlideComponent
           key={trivia.question}
           currentIndex={index}
@@ -92,7 +91,9 @@ export const TriviaComponent = ({ triviaData }: TriviaComponentProps) => {
           trivia={trivia}
           isAnswerRevealed={isAnswerRevealed}
         />
-      ))}
+      )})}
     </div>
   );
 };
+
+export default TriviaComponent;

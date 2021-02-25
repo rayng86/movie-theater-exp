@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import TravelCurtains from './components/TravelCurtain';
-import { TriviaComponent } from './components/TriviaSlideComponent';
+import TriviaComponent from './components/TriviaSlideComponent';
 import { TriviaState, PossibleStates, ScreenViews } from './types';
 import TheaterCtrls from './components/TheaterCtrls';
 import CreditsComponent from './components/CreditsComponent';
