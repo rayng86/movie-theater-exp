@@ -10,8 +10,10 @@ import YouTubeVideoComponent from './components/YouTubeVideo';
 import MovieTrailersComponent from './components/MovieTrailersComponent';
 import BgMusicToggleComponent from './components/BgMusicToggleComponent';
 import Footer from './components/Footer';
+import ToggleTheaterCtrls from './components/ToggleTheaterCtrls';
 
 function App() {
+  const [ctrlMenuExpanded, toggleCtrlMenu] = useState(false);
   const [curtainState, setCurtainState] = useState(false);
   const [lightsState, setLights] = useState(false);
   const [isProjectorOn, toggleProjector] = useState(false);
@@ -29,6 +31,10 @@ function App() {
 
   const toggleLights = () => {
     setLights(!lightsState);
+  };
+  
+  const showOrHideTheaterCtrls = () => {
+    toggleCtrlMenu(!ctrlMenuExpanded);
   };
 
   const toggleScreenProjector = () => {
@@ -103,15 +109,19 @@ function App() {
         </div>
       )}
       <div className="theater-seats"></div>
-      <TheaterCtrls
+      {ctrlMenuExpanded && (<TheaterCtrls
         isProjectorOn={isProjectorOn}
         setCurtainState={setCurtainState}
         curtainState={curtainState}
         toggleLights={toggleLights}
         toggleProjector={toggleScreenProjector}
         changeScreenView={changeScreenView}
-      />
+      />)}
       <Footer />
+      <ToggleTheaterCtrls
+        ctrlMenuExpanded={ctrlMenuExpanded}
+        showOrHideTheaterCtrls={showOrHideTheaterCtrls}
+      />
       <BgMusicToggleComponent
         isBackgroundMusicOn={isBackgroundMusicOn}
         toggleBgMusic={toggleBgMusic}
