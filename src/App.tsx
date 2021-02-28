@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
 import './App.css';
 import TravelCurtains from './components/TravelCurtain';
 import TriviaComponent from './components/TriviaSlideComponent';
-import { TriviaState, PossibleStates, ScreenViews } from './types';
+import { ScreenViews } from './types';
 import TheaterCtrls from './components/TheaterCtrls';
 import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
@@ -16,11 +16,6 @@ function App() {
   const [isProjectorOn, toggleProjector] = useState(false);
   const [screenView, setScreenView] = useState<ScreenViews>(ScreenViews.none);
 
-  // Trivia States
-  const [triviaData, setTriviaData] = useState<TriviaState>({
-    kind: PossibleStates.initial,
-  });
-
   // Background Music Audio
   const [isBackgroundMusicOn, toggleBackgroundMusic] = useState(false);
   const [bgMusicAudio] = useState(new Audio('../sounds/mike-leite-happy.mp3'));
@@ -30,33 +25,6 @@ function App() {
     new Audio('../sounds/film-projector-sound-effect.mp3')
   );
   const [projectorAudioPlaying, setProjectorAudioPlaying] = useState(false);
-
-  useEffect(() => {
-    setTriviaData({ kind: PossibleStates.loading });
-    axios
-      .get(
-        'https://opentdb.com/api.php?amount=25&category=11&difficulty=easy&type=multiple'
-      )
-      .then((res: any) => {
-        const data = res.data;
-        setTriviaData({ kind: PossibleStates.success, data: data.results });
-      })
-      .catch((err: any) => {
-        if (err.response) {
-          console.log('error in response', err.response);
-          setTriviaData({ kind: PossibleStates.error, errorStr: err.response });
-        } else if (err.request) {
-          console.log('error in request', err.request);
-          setTriviaData({ kind: PossibleStates.error, errorStr: err.request });
-        } else {
-          console.log('something else went horribly wrong');
-          setTriviaData({
-            kind: PossibleStates.error,
-            errorStr: 'something went wrong, try again later',
-          });
-        }
-      });
-  }, []);
 
   const toggleLights = () => {
     setLights(!lightsState);
@@ -84,7 +52,7 @@ function App() {
 
   const onEnd = (player?: any) => {
     changeScreenView(ScreenViews.none);
-  }
+  };
 
   return (
     <div className="App">
@@ -100,24 +68,27 @@ function App() {
                 lightsState && isProjectorOn ? { zIndex: 4 } : { zIndex: 1 }
               }
             >
-              <div className={`screen ${isProjectorOn ? '' : 'off'} ${lightsState ? 'dimmed' : ''}`}>
-                {isProjectorOn &&
-                  screenView === ScreenViews.trivia &&
-                  triviaData.kind === PossibleStates.success && (
-                    <TriviaComponent triviaData={triviaData.data} />
-                  )}
+              <div
+                className={`screen ${isProjectorOn ? '' : 'off'} ${
+                  lightsState ? 'dimmed' : ''
+                }`}
+              >
+                {isProjectorOn && screenView === ScreenViews.trivia && (
+                  <TriviaComponent />
+                )}
                 {isProjectorOn && screenView === ScreenViews.credits && (
                   <CreditsComponent />
                 )}
                 {isProjectorOn && screenView === ScreenViews.trailers && (
                   <MovieTrailersComponent changeScreenView={changeScreenView} />
                 )}
-                {isProjectorOn && screenView === ScreenViews.silentPolicyPreroll && (
-                  <YouTubeVideoComponent
-                    videoKey={'j_eabL16a5w'}
-                    onEnd={onEnd}
-                  />
-                )}
+                {isProjectorOn &&
+                  screenView === ScreenViews.silentPolicyPreroll && (
+                    <YouTubeVideoComponent
+                      videoKey={'j_eabL16a5w'}
+                      onEnd={onEnd}
+                    />
+                  )}
               </div>
             </div>
 
@@ -125,7 +96,11 @@ function App() {
           </div>
         </div>
       </div>
-      {isProjectorOn && <div className={`projector-light ${lightsState ? 'dimmed' : ''}`}>&nbsp;</div>}
+      {isProjectorOn && (
+        <div className={`projector-light ${lightsState ? 'dimmed' : ''}`}>
+          &nbsp;
+        </div>
+      )}
       <div className="theater-seats"></div>
       <TheaterCtrls
         isProjectorOn={isProjectorOn}
