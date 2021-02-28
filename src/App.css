@@ -10,6 +10,14 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: palegoldenrod;
+}
+
+a:hover {
+  color: rgb(189, 184, 119);
+}
+
 .App {
   text-align: center;
   display: flex;

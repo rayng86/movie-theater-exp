@@ -9,6 +9,7 @@ import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
 import YouTubeVideoComponent from './components/YouTubeVideo';
 import MovieTrailersComponent from './components/MovieTrailersComponent';
+import Footer from './components/Footer';
 
 function App() {
   const [curtainState, setCurtainState] = useState(false);
@@ -111,9 +112,7 @@ function App() {
         toggleBgMusic={toggleBgMusic}
         changeScreenView={changeScreenView}
       />
-      <div id="created-by" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, marginLeft: 'auto', marginRight: 'auto' }}>
-        All my love to cinema. <br /> Created by Raymond Ng
-      </div>
+      <Footer />
     </div>
   );
 }
