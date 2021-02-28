@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import './App.css';
 import TravelCurtains from './components/TravelCurtain';
@@ -9,6 +8,7 @@ import CreditsComponent from './components/CreditsComponent';
 import { musicHelper } from './helper';
 import YouTubeVideoComponent from './components/YouTubeVideo';
 import MovieTrailersComponent from './components/MovieTrailersComponent';
+import BgMusicToggleComponent from './components/BgMusicToggleComponent';
 import Footer from './components/Footer';
 
 function App() {
@@ -109,10 +109,13 @@ function App() {
         curtainState={curtainState}
         toggleLights={toggleLights}
         toggleProjector={toggleScreenProjector}
-        toggleBgMusic={toggleBgMusic}
         changeScreenView={changeScreenView}
       />
       <Footer />
+      <BgMusicToggleComponent
+        isBackgroundMusicOn={isBackgroundMusicOn}
+        toggleBgMusic={toggleBgMusic}
+      />
     </div>
   );
 }

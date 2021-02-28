@@ -7,7 +7,6 @@ type TheaterCtrlsProps = {
   curtainState: boolean,
   toggleLights: () => void,
   toggleProjector: () => void,
-  toggleBgMusic: () => void,
   changeScreenView: (view: ScreenViews) => void,
 }
 
@@ -17,7 +16,6 @@ const TheaterCtrls = ({
   curtainState,
   toggleLights,
   toggleProjector,
-  toggleBgMusic,
   changeScreenView,
 }: TheaterCtrlsProps) => (
   <div style={{ zIndex: 6, margin: '20px 0', position: 'fixed', marginRight: 'auto', marginLeft: 'auto', left: 0, right: 0 }}>
@@ -34,12 +32,6 @@ const TheaterCtrls = ({
     <button disabled={!isProjectorOn} onClick={() => changeScreenView(ScreenViews.trivia)}>
       Trivia Mode
     </button>
-    <button disabled={!isProjectorOn} onClick={() => changeScreenView(ScreenViews.credits)}>
-      Credits Roll
-    </button>
-    <button onClick={toggleBgMusic}>
-      Toggle Background Music
-    </button>
     <button
       disabled={!isProjectorOn}
       onClick={() => changeScreenView(ScreenViews.trailers)}
@@ -51,6 +43,9 @@ const TheaterCtrls = ({
       onClick={() => changeScreenView(ScreenViews.silentPolicyPreroll)}
     >
       Silence Phones Preroll
+    </button>
+    <button disabled={!isProjectorOn} onClick={() => changeScreenView(ScreenViews.credits)}>
+      Credits Roll
     </button>
   </div>
 );

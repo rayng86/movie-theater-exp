@@ -181,7 +181,7 @@ a:hover {
 }
 
 .screen.dimmed {
-  background: #757575;
+  background: #c5beb0;
 }
 
 .screen.off {
@@ -423,4 +423,26 @@ a:hover {
   background-size: contain;
   background-position: center;
   width: 100%;
+}
+
+Button {
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid peru;
+  border-radius: 3px;
+  color: white;
+  background: peru;
+  outline: none;
+}
+
+Button:hover {
+  background: rgb(148, 94, 40);
+}
+
+Button:disabled {
+  background: lightgrey;
+  color: darkgrey;
+  border: darkgrey;
+  cursor:default;
 }
