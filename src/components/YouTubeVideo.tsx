@@ -22,6 +22,7 @@ const YouTubeVideoComponent = ({
       autoplay: 1,
       showinfo: 0,
       controls: 0,
+      playsinline: 1,
     },
   };
   return (

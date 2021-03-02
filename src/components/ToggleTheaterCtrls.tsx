@@ -16,7 +16,7 @@ const ToggleTheaterCtrls = ({
       left: '1rem',
       width: '2rem',
       height: '2rem',
-      zIndex: 9999,
+      zIndex: 9998,
       cursor: 'pointer',
     }}
     onClick={showOrHideTheaterCtrls}

@@ -63,6 +63,9 @@ function App() {
 
   return (
     <div className="App">
+      <div className="mobile-portrait-mode-alert">
+        Rotate the screen to landscape mode
+      </div>
       <div style={{ flex: '0 1 auto' }}>
         <div className="curtain">
           <div className={`lights ${lightsState ? 'dimmed' : ''}`} />

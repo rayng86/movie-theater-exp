@@ -14,7 +14,7 @@ const BgMusicToggleComponent = ({
   right: '1rem',
   width: '2rem',
   height: '2rem',
-  zIndex: 9999,
+  zIndex: 9998,
   cursor: 'pointer'
 }} onClick={toggleBgMusic} title="bg music">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" color="white">
