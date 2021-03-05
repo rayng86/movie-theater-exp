@@ -40,11 +40,11 @@ export const musicHelper = (audio: any, audioPlayingState: boolean, audioVolumeV
 
 export const moviedbApiUrl = 'https://api.themoviedb.org/3';
 export const theMovieDBApiKey = process.env.REACT_APP_THE_MOVIE_DB_API;
-const popularMoviesUrl = `${moviedbApiUrl}/movie/popular`;
+const nowPlayingMoviesUrl = `${moviedbApiUrl}/movie/now_playing`;
 
 export const fetchMovies: any = async() => {
   try {
-    const {data} = await axios.get(popularMoviesUrl, {
+    const {data} = await axios.get(nowPlayingMoviesUrl, {
       params: {
         api_key: theMovieDBApiKey,
         language: 'en_US',
