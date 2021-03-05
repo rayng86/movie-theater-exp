@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { randomizeAnswers, fixTextStr, randomBg, alphabets } from '../helper';
 import { PossibleStates, TriviaDataStructure, TriviaState } from '../types';
 
@@ -61,6 +61,7 @@ const TriviaSlideComponent = ({
 };
 
 const TriviaComponent = () => {
+  const timeoutRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false);
   // Trivia States
@@ -95,45 +96,52 @@ const TriviaComponent = () => {
       });
   }, []);
 
+  const next = useCallback(() => {
+    if (triviaData.kind === PossibleStates.success) {
+      setIsAnswerRevealed(!isAnswerRevealed);
+      if (isAnswerRevealed) setActiveIndex((prevIndex) => prevIndex === triviaData.data.length - 1 ? 0 : prevIndex + 1);
+    }
+  }, [isAnswerRevealed, triviaData]);
+  
+  const resetTimeOut = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  }
+
   useEffect(() => {
     const handleKey = (e: any) => {
-      console.log(e.code);
-      if (triviaData.kind === PossibleStates.success) {
-        if (e.code === 'ArrowRight') {
-          if (activeIndex < triviaData.data.length - 1) {
-            if (isAnswerRevealed) {
-              setActiveIndex(activeIndex + 1);
-              setIsAnswerRevealed(false);
-            } else {
-              setIsAnswerRevealed(true);
-            }
-          } else {
-            console.log('restart');
-            setActiveIndex(0);
-          }
-        }
-      }
+      if (e.code === 'ArrowRight') next();
     };
     document.addEventListener('keydown', handleKey);
     return () => {
       document.removeEventListener('keydown', handleKey);
     };
-  }, [activeIndex, triviaData, isAnswerRevealed]);
+  }, [activeIndex, isAnswerRevealed, next]);
+
+  useEffect(() => {
+    resetTimeOut();
+    timeoutRef.current = setTimeout(() => {
+      next();
+    }, 8000);
+    return () => {
+      resetTimeOut();
+    }
+  }, [activeIndex, isAnswerRevealed, next]);
+
+
   if (triviaData.kind === PossibleStates.success) {
     return (
       <div className="slide-container">
-        {triviaData.data.map((trivia: TriviaDataStructure, index: number) => {
-          console.log(index);
-          return (
-            <TriviaSlideComponent
-              key={trivia.question}
-              currentIndex={index}
-              activeIndex={activeIndex}
-              trivia={trivia}
-              isAnswerRevealed={isAnswerRevealed}
-            />
-          );
-        })}
+        {triviaData.data.map((trivia: TriviaDataStructure, index: number) => (
+          <TriviaSlideComponent
+            key={trivia.question}
+            currentIndex={index}
+            activeIndex={activeIndex}
+            trivia={trivia}
+            isAnswerRevealed={isAnswerRevealed}
+          />
+          ))}
       </div>
     );
   }
