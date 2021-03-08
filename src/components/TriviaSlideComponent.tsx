@@ -8,6 +8,7 @@ type TriviaSlideComponentProps = {
   activeIndex: number;
   currentIndex: number;
   isAnswerRevealed: boolean;
+  bgColor: string,
 };
 
 const TriviaSlideComponent = ({
@@ -15,9 +16,9 @@ const TriviaSlideComponent = ({
   activeIndex,
   currentIndex,
   isAnswerRevealed,
+  bgColor,
 }: TriviaSlideComponentProps) => {
   const displaySlide = activeIndex === currentIndex ? 'grid' : 'none';
-  const bgColor = randomBg();
   const { question, incorrect_answers, correct_answer } = trivia;
   const [possibleAnswers] = useState(
     randomizeAnswers([correct_answer, ...incorrect_answers])
@@ -64,6 +65,7 @@ const TriviaComponent = () => {
   const timeoutRef = useRef<any>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false);
+  const [bgColor, setBgColor] = useState<string>(randomBg());
   // Trivia States
   const [triviaData, setTriviaData] = useState<TriviaState>({
     kind: PossibleStates.initial,
@@ -99,6 +101,7 @@ const TriviaComponent = () => {
   const next = useCallback(() => {
     if (triviaData.kind === PossibleStates.success) {
       setIsAnswerRevealed(!isAnswerRevealed);
+      setBgColor(randomBg());
       if (isAnswerRevealed) setActiveIndex((prevIndex) => prevIndex === triviaData.data.length - 1 ? 0 : prevIndex + 1);
     }
   }, [isAnswerRevealed, triviaData]);
@@ -140,6 +143,7 @@ const TriviaComponent = () => {
             activeIndex={activeIndex}
             trivia={trivia}
             isAnswerRevealed={isAnswerRevealed}
+            bgColor={bgColor}
           />
           ))}
       </div>
